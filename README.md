@@ -33,13 +33,21 @@ conda install -c statiskit clang
 ```
 
 ### compile and configure 
+```
 python $DPCPP_HOME/llvm/buildbot/configure.py
 python $DPCPP_HOME/llvm/buildbot/compile.pys
+```
 
 ### configure workspace
+```
 export DPCPP_HOME=~/sycl_workspace
 export PATH=$DPCPP_HOME/llvm/build/bin:$PATH
 export LD_LIBRARY_PATH=$DPCPP_HOME/llvm/build/lib:$LD_LIBRARY_PATH
+```
 
+### Run compilaction
+```
+clang++ -fsycl simple.cpp -o simple
+```
 
 ### Install requiriments: 
