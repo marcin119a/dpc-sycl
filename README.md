@@ -41,7 +41,7 @@ conda install cmake
 ### compile and configure 
 ```
 python $DPCPP_HOME/llvm/buildbot/configure.py
-python $DPCPP_HOME/llvm/buildbot/compile.pys
+python $DPCPP_HOME/llvm/buildbot/compile.py
 ```
 
 ### configure workspace
@@ -56,7 +56,7 @@ export LD_LIBRARY_PATH=$DPCPP_HOME/llvm/build/lib:$LD_LIBRARY_PATH
 clang++ -fsycl simple.cpp -o simple
 ```
 
-### Recommende build instructions: 
+### Recommended build instructions: 
 
 ##### Unix/MacOS
 
