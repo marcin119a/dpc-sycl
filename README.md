@@ -24,12 +24,18 @@ source <path>/anaconda3/bin/activate
 conda activate base
 ```
 
+### Where is clang?
+
+```
+<path>/sycl_workspace/llvm/build/bin/clang
+<path>/sycl_workspace/llvm/build/bin/clang++
+```
+
 ### Install dependency:
 ```bash
 conda install git
 conda install ninja
 conda install cmake
-conda install -c statiskit clang 
 ```
 
 ### compile and configure 
@@ -50,4 +56,15 @@ export LD_LIBRARY_PATH=$DPCPP_HOME/llvm/build/lib:$LD_LIBRARY_PATH
 clang++ -fsycl simple.cpp -o simple
 ```
 
-### Install requiriments: 
+### Recommende build instructions: 
+
+##### Unix/MacOS
+
+```
+sh path_set.sh
+mkdir build && cd build
+cmake .. 
+cmake --build .
+```
+
+

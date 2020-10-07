@@ -1,5 +1,5 @@
 #include "ising/energy.h"
 
-std::string ising::helloWorld() {
-    return std::string{"Hello world!"};
+int ising::helloWorld() {
+    return 0;
 }
