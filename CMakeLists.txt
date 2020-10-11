@@ -13,7 +13,6 @@ set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_CXX_FLAGS "-fsycl")
 
 
-
 add_subdirectory(src)
 add_subdirectory(app)
 

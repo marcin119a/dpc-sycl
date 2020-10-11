@@ -1,47 +1,29 @@
 #include <CL/sycl.hpp>
-#include "ising/energy.h"
+#include "ising/qubo.hpp"
+#include <utility>
+#include <functional>
 
 
-int main() {
-  // Creating buffer of 4 ints to be used inside the kernel code
-  cl::sycl::buffer<cl::sycl::cl_int, 1> Buffer(4);
+using namespace qubo;
 
-  // Creating SYCL queue
-  cl::sycl::queue Queue;
+int main()
+{
 
-  // Size of index space for kernel
-  cl::sycl::range<1> NumOfWorkItems{Buffer.get_count()};
+LinearCoef<int, double> linear_c{ {1, -0.4}, {2, 1.1}, {3, -1.0}, {4, -1.2} };
 
-  // Submitting command group(work) to queue
-  Queue.submit([&](cl::sycl::handler &cgh) {
-    // Getting write only access to the buffer on a device
-    auto Accessor = Buffer.get_access<cl::sycl::access::mode::write>(cgh);
-    // Executing kernel
-    cgh.parallel_for<class FillBuffer>(
-        NumOfWorkItems, [=](cl::sycl::id<1> WIid) {
-          // Fill buffer with indexes
-          Accessor[WIid] = (cl::sycl::cl_int)WIid.get(0);
-        });
-  });
+QuadraticCoef<int, double> quadratic_c
+{
+     {std::make_pair(1, 2), 1.0}, {std::make_pair(1, 3), 7.2}, {std::make_pair(1, 4), 1.0},
+     {std::make_pair(2, 3), 2.0}, {std::make_pair(2, 4), 1.9},
+     {std::make_pair(3, 4), 3.0}
+};
 
-  // Getting read only access to the buffer on the host.
-  // Implicit barrier waiting for queue to complete the work.
-  const auto HostAccessor = Buffer.get_access<cl::sycl::access::mode::read>();
+// Create a QUBO instance
+QUBOModel<int, double> qubo(linear_c, quadratic_c);
 
-  // Check the results
-  bool MismatchFound = false;
-  for (size_t I = 0; I < Buffer.get_count(); ++I) {
-    if (HostAccessor[I] != I) {
-      std::cout << "The result is incorrect for element: " << I
-                << " , expected: " << I << " , got: " << HostAccessor[I]
-                << std::endl;
-      MismatchFound = true;
-    }
-  }
+// Print informations of qubo
+qubo.print();
 
-  if (!MismatchFound) {
-    std::cout << "The results are correct!"<< ising::helloWorld() << std::endl;
-  }
+return 0;
 
-  return MismatchFound;
 }
