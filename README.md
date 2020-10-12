@@ -67,4 +67,7 @@ cmake ..
 cmake --build .
 ```
 
-
+### for debug:
+```
+clang++ app/main.cpp qubo.cpp -I include/ -L build/src/ -l IsingSolver -o main
+```
