@@ -7,4 +7,5 @@ set(APP_SOURCES "${APP_SOURCE_DIRECTORY}/main.cpp")
 
 add_executable(${APP_NAME} ${APP_SOURCES})
 
-target_link_libraries(${APP_NAME} ${LIBRARY_NAME})
+
+target_link_libraries(${APP_NAME} "${LIBRARY_NAME}")
