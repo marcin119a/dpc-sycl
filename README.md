@@ -67,6 +67,18 @@ cmake ..
 cmake --build .
 ```
 
+### Install conan -- C/C++ package manager
+```
+pip install conan
+```
+
+### Run tests:
+```
+cd build
+conan install ..
+bin/main-test
+```
+
 ### for debug:
 ```
 clang++ app/main.cpp qubo.cpp -I include/ -L build/src/ -l IsingSolver -o main
